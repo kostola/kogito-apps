@@ -33,7 +33,7 @@ public class ExplainabilityResultDto {
     @JsonProperty("statusDetails")
     private String statusDetails;
 
-    @JsonProperty("saliency")
+    @JsonProperty("saliencies")
     private Map<String, SaliencyDto> saliencies;
 
     private ExplainabilityResultDto() {
