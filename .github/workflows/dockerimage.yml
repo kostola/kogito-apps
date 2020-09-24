@@ -1,0 +1,23 @@
+name: Docker Image
+
+on:
+  push:
+    branches: [ KOGITO-3402 ]
+
+jobs:
+  dockerimage:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 1.11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -Dquarkus.container-image.push=true -Dquarkus.container-image.registry=quay.io -Dquarkus.container-image.name=explainability-service-rest-daas -Dquarkus.container-image.group=alcosta -Dquarkus.container-image.tag=latest '-Dquarkus.container-image.username=${{ secrets.DOCKER_USERNAME }}' '-Dquarkus.container-image.password=${{ secrets.DOCKER_PASSWORD }}'
+        working-directory: explainability/explainability-service-rest-daas
